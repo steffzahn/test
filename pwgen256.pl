@@ -17,7 +17,7 @@ my $l=$ARGV[2];
 
 die "First parameter needs to be a non-empty string" if( !defined($site) || ($site eq "") );
 
-print "Warning site $site might by misspelled\n"
+print "Warning site $site might be misspelled\n"
     if($site !~ /^(google|facebook|instagram|pinterest|flickr|yahoo|vimeo|tumblr|cloud9|github|dropbox|twitter|wikipedia|apple|slashdot|skype|amazon|flipboard|wlan|bank|home|company)$/);
 
 die "Second parameter needs to be a non-empty string" if( !defined($pw) || ($pw eq "") );
