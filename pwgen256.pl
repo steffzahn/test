@@ -57,20 +57,20 @@ die "Second parameter is not a number" if( !defined($l) || ($l !~ /^\d+$/) );
 
 die "Third parameter needs to be a non-empty string" if( !defined($pw) || ($pw eq "") );
 
-sub hash256
+sub blob2u32
 {
     my $str= @_ ? shift @_ : undef;
-    return unpack( "N",substr(sha256($str),0,4));
+    return unpack( "N",substr($str,0,4));
 }
 
-my $a = hash256( $site . $pw );
+my $a = sha256( $site . $pw );
 print "DEBUG a $a\n" if($DEBUG);
 
 while($l>0)
 {
-    my $b = hash256( $a . $pw );
+    my $b = sha256( $a . $pw );
     print "DEBUG b $b\n" if($DEBUG);
-    print substr($printable,$b % $printable_len,1);
+    print substr($printable,blob2u32($b) % $printable_len,1);
     $a = $b;
     $l--;
 }
