@@ -1,6 +1,7 @@
 #!/usr/bin/perl --
 
 # generate site specific passwords from one (or more) master password(s)
+# Steffen Zahn steffzahn@gmail.com
 
 use strict;
 use warnings;
