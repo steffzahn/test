@@ -1,5 +1,7 @@
 #!/usr/bin/perl --
 
+# generate site specific passwords from one (or more) master password(s)
+
 use strict;
 use warnings;
 use Digest::SHA qw(sha256);
@@ -11,8 +13,34 @@ my $printable="abcdefghijkmnopqrstuvwxyz23456789!:?/&()-"; # size 41 (prime)
 my $printable_len=length($printable);
 
 my $site=$ARGV[0];
-my $l=$ARGV[1];
+my $length=$ARGV[1];
 my $pw=$ARGV[2];
+
+my %site2defaultPWLength =
+    (
+        "google" => 16,
+        "facebook" => 16,
+        "instagram" => 16,
+        "pinterest" => 16,
+        "flickr" => 16,
+        "yahoo" => 16,
+        "vimeo" => 16,
+        "tumblr" => 16,
+        "cloud9" => 16,
+        "github" => 16,
+        "dropbox" => 16,
+        "twitter" => 16,
+        "wikipedia" => 16,
+        "apple" => 16,
+        "slashdot" => 16,
+        "skype" => 16,
+        "amazon" => 16,
+        "flipboard" => 16,
+        "wlan" => 16,
+        "bank" => 16,
+        "home" => 16,
+        "company" => 16
+    );
 
 sub prompt
 {
@@ -33,9 +61,21 @@ if( !defined($site) )
 {
     $site=prompt("Site:");
 }
-if( !defined($l) )
+
+die "First parameter needs to be a non-empty string" if( !defined($site) || ($site eq "") );
+
+print "Warning site $site might be misspelled\n"
+    if( !defined( $site2defaultPWLength{$site} ) );
+
+if( !defined($length) )
 {
-    $l=prompt("Length of generated password:");
+    if( defined( $site2defaultPWLength{$site} ) )
+    {
+        $length = $site2defaultPWLength{$site};
+        print "Using default password length of $length defined for site \"$site\"\n";
+    } else {
+        $length=prompt("Length of generated password:");
+    }
 }
 
 if( !defined($pw) )
@@ -46,14 +86,9 @@ if( !defined($pw) )
     print "\n";
 }
 
-die "Need 3 parameter" if( !defined($site) || !defined($l) || !defined($pw) );
+die "Need 3 parameter" if( !defined($site) || !defined($length) || !defined($pw) );
 
-die "First parameter needs to be a non-empty string" if( !defined($site) || ($site eq "") );
-
-print "Warning site $site might be misspelled\n"
-    if($site !~ /^(google|facebook|instagram|pinterest|flickr|yahoo|vimeo|tumblr|cloud9|github|dropbox|twitter|wikipedia|apple|slashdot|skype|amazon|flipboard|wlan|bank|home|company)$/);
-
-die "Second parameter is not a number" if( !defined($l) || ($l !~ /^\d+$/) );
+die "Second parameter is not a number" if( !defined($length) || ($length !~ /^\d+$/) );
 
 die "Third parameter needs to be a non-empty string" if( !defined($pw) || ($pw eq "") );
 
@@ -66,13 +101,13 @@ sub blob2u32
 my $a = sha256( $site . $pw );
 print "DEBUG a $a\n" if($DEBUG);
 
-while($l>0)
+while($length>0)
 {
     my $b = sha256( $a . $pw );
     print "DEBUG b $b\n" if($DEBUG);
     print substr($printable,blob2u32($b) % $printable_len,1);
     $a = $b;
-    $l--;
+    $length--;
 }
 
 print "\n";
