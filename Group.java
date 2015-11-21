@@ -4,7 +4,7 @@ public interface Group
     
     public Element parse(String s);
 
-    public Element plus( Element a, Element b );
+    public Element add( Element a, Element b );
 
     public boolean isZero(Element e);
     

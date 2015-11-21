@@ -4,9 +4,13 @@ public abstract class FieldBase extends GroupBase implements Field
     public Element one()
     {
         Element result = one_();
-        if( result.getTheClass()!=zero().getTheClass() )
+        if( result==null )
         {
-            throw new RuntimeException("one and zero are not in the same field");
+            throw new NullPointerException("one operation delivered null result");
+        }
+        if( result.getTheClass()!=this )
+        {
+            throw new RuntimeException("one operation delivers element outside of field");
         }
         return result;
     }
@@ -14,16 +18,20 @@ public abstract class FieldBase extends GroupBase implements Field
     protected abstract Element multiply_( Element a,Element b );
     public Element multiply( Element a, Element b )
     {
-        Element result = multiply_(a,b);
-        if( (a==null) || (b==null) || (a.getTheClass()!=b.getTheClass()) )
+        if( (a==null) || (b==null) )
         {
-            throw new RuntimeException("multiply operation allows to process incompatible fields");
+            throw new RuntimeException("multiply operation missing mandatory parameters");
         }
+        if( (a.getTheClass()!=this) || (b.getTheClass()!=this) )
+        {
+            throw new RuntimeException("multiply operation does not process incompatible fields");
+        }
+        Element result = multiply_(a,b);
         if( result==null )
         {
             throw new NullPointerException("multiply operation delivered null result");
         }
-        if( result.getTheClass()!=a.getTheClass() )
+        if( result.getTheClass()!=this )
         {
             throw new RuntimeException("multiply operation delivers element outside of field");
         }
@@ -33,18 +41,22 @@ public abstract class FieldBase extends GroupBase implements Field
     protected abstract Element inverse_(Element a);
     public Element inverse(Element a)
     {
+        if( (a==null) || (a.getTheClass()!=this) )
+        {
+            throw new RuntimeException("inverse operation does not process element outside of field");
+        }
+        if( this.isZero(a) )
+        {
+            throw new RuntimeException("inverse operation does not accept zero");
+        }
         Element result = inverse_(a);
         if( result==null )
         {
             throw new NullPointerException("inverse operation delivered null result");
         }
-        if( (a==null) || (result.getTheClass()!=a.getTheClass()) )
+        if( result.getTheClass()!=this )
         {
             throw new RuntimeException("inverse operation delivers element outside of field");
-        }
-        if( this.isZero(a) )
-        {
-            throw new RuntimeException("inverse operation accepts zero");
         }
         return result;
     }

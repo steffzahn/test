@@ -11,11 +11,11 @@ class gtest
         System.out.println(zero);
         Element a = myGroup.parse( args[0] );
         System.out.println(a);
-        a = myGroup.plus( a,zero );
+        a = myGroup.add( a,zero );
         System.out.println(a);
         Element b = myGroup.negative(a);
         System.out.println(b);
-        System.out.println(myGroup.isZero(myGroup.plus(a,b)));
+        System.out.println(myGroup.isZero(myGroup.add(a,b)));
         
         System.out.println("Field");
         Element zerof = myField.zero();
@@ -24,14 +24,18 @@ class gtest
         System.out.println(one);
         Element af = myField.parse( args[1]);
         System.out.println(af);
-        af = myField.plus(af,zerof );
+        af = myField.add(af,zerof );
         System.out.println(af);
         Element bf = myField.negative(af);        
         System.out.println(bf);
-        System.out.println(myField.isZero(myField.plus(af,bf)));
+        System.out.println(myField.isZero(myField.add(af,bf)));
         System.out.println(myField.multiply(af,bf));
         Element cf = myField.inverse(af);    
         System.out.println(cf);
         System.out.println(myField.multiply(cf,af));
+
+        Field myField2 = new FloatField();
+        Element zero2 =myField2.zero();
+        System.out.println(myField.add(af,zero2));
     }
 }

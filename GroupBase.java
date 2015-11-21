@@ -1,48 +1,93 @@
 public abstract class GroupBase implements Group
 {
-    public abstract Element zero();
+    protected abstract Element zero_();
+    public Element zero()
+    {
+        Element result = zero_();
+        if( result==null )
+        {
+            throw new NullPointerException("zero operation delivered null result");
+        }
+        if( result.getTheClass()!=this )
+        {
+            throw new RuntimeException("zero operation delivers element outside of group");
+        }
+        return result;
+    }
     
     protected abstract Element parse_(String s);
     public Element parse(String s)
     {
+        if( s==null )
+        {
+            throw new RuntimeException("parse operation missing mandatory parameter");
+        }
         Element result= parse_(s);
         if( result==null )
         {
             throw new NullPointerException("parse operation delivered null result");
         }
-        if( (s==null) || (result.getTheClass()!=zero().getTheClass()) )
+        if( result.getTheClass()!=this )
         {
             throw new RuntimeException("parse operation delivers element outside of group");
         }
         return result;
     }
 
-    protected abstract Element plus_( Element a, Element b );
-    public Element plus( Element a, Element b )
+    protected abstract Element add_( Element a, Element b );
+    public Element add( Element a, Element b )
     {
-        Element result = plus_(a,b);
+        if( (a==null) || (b==null) )
+        {
+            throw new RuntimeException("add operation missing mandatory parameters");
+        }
+        if( (a.getTheClass()!=this) || (b.getTheClass()!=this) )
+        {
+            throw new RuntimeException("add operation does not process incompatible groups");
+        }
+        Element result = add_(a,b);
         if( result==null )
         {
-            throw new NullPointerException("plus operation delivered null result");
+            throw new NullPointerException("add operation delivered null result");
         }
-        if( (a==null) || (b==null) || (a.getTheClass()!=b.getTheClass()) )
+        if( result.getTheClass()!=this )
         {
-            throw new RuntimeException("plus operation allows to process incompatible groups");
-        }
-        if( result.getTheClass()!=a.getTheClass() )
-        {
-            throw new RuntimeException("plus operation delivers element outside of group");
+            throw new RuntimeException("add operation delivers element outside of group");
         }
         return result;
     }
     
-    public abstract boolean isZero(Element e);
+    protected abstract boolean isZero_(Element e);
+    public boolean isZero(Element e)
+    {
+        if( e==null )
+        {
+            throw new RuntimeException("isZero operation missing mandatory parameters");
+        }
+        if( this!=e.getTheClass()  )
+        {
+            throw new RuntimeException("isZero operation does not accept parameters from a different group");
+        }
+        return isZero_(e);
+    }
     
     protected abstract Element negative_(Element a);
     public Element negative(Element a)
     {
+        if( a==null )
+        {
+            throw new RuntimeException("negative operation missing mandatory parameters");
+        }
+        if( this!=a.getTheClass()  )
+        {
+            throw new RuntimeException("negative operation does not accept parameters from a different group");
+        }
         Element result = negative_(a);
-        if( (a==null) || (result.getTheClass()!=a.getTheClass()) )
+        if( result==null )
+        {
+            throw new NullPointerException("negative operation delivered null result");
+        }
+        if( result.getTheClass()!=this )
         {
             throw new RuntimeException("negative operation delivers element outside of group");
         }
