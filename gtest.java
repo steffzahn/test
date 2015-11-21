@@ -1,3 +1,5 @@
+import java.util.ArrayList;
+
 class gtest
 {
     public static void main( String[] args)
@@ -37,8 +39,12 @@ class gtest
         System.out.println(myField.multiply(cf,af));
         System.out.println(myField.divide(af,bf));
 
-        Field myField2 = new FloatField();
-        Element zero2 =myField2.zero();
-        System.out.println(myField.add(af,zero2));
+        ArrayList<Element> list = new ArrayList<Element>();
+        list.add( myField.parse("12.5"));
+        list.add( myField.parse("3.7"));
+        list.add( myField.parse("1.09"));
+        System.out.println(myField.sum( list ));
+        System.out.println(myField.product( list ));
+        System.out.println("ended normally");
     }
 }

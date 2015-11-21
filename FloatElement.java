@@ -1,6 +1,8 @@
 class FloatElement extends Element
 {
     protected double _value;
+    private boolean _hashComputed;
+    private int _hashValue;
     
     private FloatElement castIt( Object g )
     {
@@ -19,6 +21,7 @@ class FloatElement extends Element
     {
         super( cl );
         _value = v;
+        _hashComputed = false;
     }
 
     public boolean equals( Object b)
@@ -27,6 +30,16 @@ class FloatElement extends Element
         return _value == bb._value;
     }
 
+    public int hashCode()
+    {
+        if( !_hashComputed )
+        {
+            _hashValue = new Double(_value).hashCode();
+            _hashComputed = true;
+        }
+        return _hashValue;
+    }
+    
     public String toString()
     {
         return Double.toString(_value);

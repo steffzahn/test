@@ -1,3 +1,5 @@
+import java.util.Iterator;
+
 public abstract class Field extends Group implements IField
 {
     protected abstract Element one_();
@@ -67,4 +69,18 @@ public abstract class Field extends Group implements IField
         return this.multiply(a,this.inverse(b));
     }
 
+    public Element product( Iterable<Element> iterable )
+    {
+        if( iterable==null )
+        {
+            throw new RuntimeException("product operation missing mandatory parameters");
+        }
+        Element result = one();
+        Iterator<Element> it = iterable.iterator();
+        while( it.hasNext() )
+        {
+            result = this.multiply( result, it.next() ); 
+        }
+        return result;
+    }
 }

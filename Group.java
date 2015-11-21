@@ -1,3 +1,5 @@
+import java.util.Iterator;
+
 public abstract class Group implements IGroup
 {
     protected abstract Element zero_();
@@ -98,5 +100,20 @@ public abstract class Group implements IGroup
     public Element minus( Element a, Element b )
     {
         return this.add(a,this.negative(b));
+    }
+
+    public Element sum( Iterable<Element> iterable )
+    {
+        if( iterable==null )
+        {
+            throw new RuntimeException("sum operation missing mandatory parameters");
+        }
+        Element result = zero();
+        Iterator<Element> it = iterable.iterator();
+        while( it.hasNext() )
+        {
+            result = this.add( result, it.next() ); 
+        }
+        return result;
     }
 }
