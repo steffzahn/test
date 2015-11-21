@@ -1,15 +1,12 @@
-public abstract class Group
+public interface Group
 {
-    public abstract GroupElement zero();
+    public Element zero();
     
-    protected abstract GroupElement parse_(String s);
-    public GroupElement parse(String s)
-    {
-        GroupElement result= parse_(s);
-        if( (s==null) || (result.getClass()!=zero().getClass()) )
-        {
-            throw new RuntimeException("parse operation delivers element outside of group");
-        }
-        return result;
-    }
+    public Element parse(String s);
+
+    public Element plus( Element a, Element b );
+
+    public boolean isZero(Element e);
+    
+    public Element negative(Element a);
 }

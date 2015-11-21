@@ -1,8 +1,8 @@
-class FloatGroup extends GroupBase implements Group
+public class FloatField extends FieldBase implements Field
 {
-    public FloatGroup()
+    protected FloatField()
     {}
-
+    
     private FloatElement castIt( Element g )
     {
         if( g == null)
@@ -15,8 +15,30 @@ class FloatGroup extends GroupBase implements Group
         }
         throw new RuntimeException("Not en element of FloatGroup");
     }
+
+    public FloatElement one_()
+    {
+        return new FloatElement( this, 1.0 );
+    }
+
+    protected Element multiply_( Element a,Element b )
+    {
+        FloatElement af = castIt( a );
+        FloatElement bf = castIt( b );
+        return new FloatElement( this, af._value * bf._value );
+    }
     
-    protected Element parse_(String s)
+    protected Element inverse_(Element a)
+    {
+        if( this.isZero(a) )
+        {
+            throw new RuntimeException("divide by zero");
+        }
+        FloatElement af = castIt( a );
+        return new FloatElement( this, 1.0 / af._value );
+    }
+
+        protected Element parse_(String s)
     {
         return new FloatElement( this, Double.parseDouble(s) );
     }
