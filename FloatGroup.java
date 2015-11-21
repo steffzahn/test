@@ -1,4 +1,4 @@
-class FloatGroup extends GroupBase implements Group
+class FloatGroup extends Group implements IGroup
 {
     public FloatGroup()
     {}

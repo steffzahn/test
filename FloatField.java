@@ -1,4 +1,4 @@
-public class FloatField extends FieldBase implements Field
+public class FloatField extends Field implements IField
 {
     protected FloatField()
     {}

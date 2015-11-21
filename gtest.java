@@ -16,6 +16,7 @@ class gtest
         Element b = myGroup.negative(a);
         System.out.println(b);
         System.out.println(myGroup.isZero(myGroup.add(a,b)));
+        System.out.println(myGroup.minus(a,b));
         
         System.out.println("Field");
         Element zerof = myField.zero();
@@ -29,10 +30,12 @@ class gtest
         Element bf = myField.negative(af);        
         System.out.println(bf);
         System.out.println(myField.isZero(myField.add(af,bf)));
+        System.out.println(myField.minus(af,bf));
         System.out.println(myField.multiply(af,bf));
         Element cf = myField.inverse(af);    
         System.out.println(cf);
         System.out.println(myField.multiply(cf,af));
+        System.out.println(myField.divide(af,bf));
 
         Field myField2 = new FloatField();
         Element zero2 =myField2.zero();
