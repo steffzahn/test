@@ -1,9 +1,7 @@
 package sz.math.intf;
 import sz.math.abstr.Element;
 
-public interface IField extends IRing
+public interface IField extends IUnitaryRing
 {
-    public Element one();
-
     public Element inverse(Element a);
 }

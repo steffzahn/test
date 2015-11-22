@@ -126,7 +126,7 @@ public abstract class Group implements IGroup
     {
         if( iterable==null )
         {
-            throw new RuntimeException("sum operation missing mandatory parameters");
+            throw new RuntimeException("parseList operation missing mandatory parameters");
         }
         ArrayList<Element> result = new ArrayList<Element>();
         Iterator<String> it = iterable.iterator();
