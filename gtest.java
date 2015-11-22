@@ -30,12 +30,7 @@ class gtest
         System.out.println(myGroup.isZero(myGroup.add(a,b)));
         System.out.println(myGroup.minus(a,b));
 
-        ArrayList<Element> list = new ArrayList<Element>();
-        for( String s : strlist )
-        {
-            list.add( myGroup.parse(s));
-        }
-        System.out.println(myGroup.sum( list ));
+        System.out.println(myGroup.sum( myGroup.parseList(strlist) ));
     }
     
     private static void ringTest(Ring myRing, String v1, List<String> strlist )
@@ -45,12 +40,7 @@ class gtest
         Element bf = myRing.negative(af);
         System.out.println(myRing.multiply(af,bf));
 
-        ArrayList<Element> list = new ArrayList<Element>();
-        for( String s : strlist )
-        {
-            list.add( myRing.parse(s));
-        }
-        System.out.println(myRing.sum( list ));
+        System.out.println(myRing.sum( myRing.parseList( strlist )));
     }
 
     private static void fieldTest(Field myField, String v1, List<String> strlist )
@@ -66,11 +56,7 @@ class gtest
         System.out.println(myField.multiply(cf,af));
         System.out.println(myField.divide(af,bf));
 
-        ArrayList<Element> list = new ArrayList<Element>();
-        for( String s : strlist )
-        {
-            list.add( myField.parse(s));
-        }
+        List<Element> list = myField.parseList( strlist );
         System.out.println(myField.sum( list ));
         System.out.println(myField.product( list ));
     }
@@ -85,23 +71,27 @@ class gtest
         List<String> floatList = Arrays.asList("12.5","3.7","1.09");
         List<String> intList = Arrays.asList("12","7","1");
         
-        groupTest( myGroup, args[0], floatList );
+        String v0 = (args.length>0) ? args[0] : "12.3";
+        String v1 = (args.length>1) ? args[1] : "5";
+        String v2 = (args.length>2) ? args[2] : "2.2";
+        
+        groupTest( myGroup, v0, floatList );
 
         Group myIntGroup = new IntGroup();
-        groupTest( myIntGroup, args[1], intList );
+        groupTest( myIntGroup, v1, intList );
 
         Ring myIntRing = new IntRing();
-        ringTest( myIntRing, args[1], intList );
+        ringTest( myIntRing, v1, intList );
 
         System.out.println("Ring");
-        groupTest( myRing, args[2], floatList );
-        ringTest( myRing, args[0], floatList );
+        groupTest( myRing, v2, floatList );
+        ringTest( myRing, v0, floatList );
 
         System.out.println("Field");
 
-        groupTest( myField, args[2], floatList );
+        groupTest( myField, v2, floatList );
 
-        fieldTest( myField, args[2], floatList );
+        fieldTest( myField, v2, floatList );
 
         System.out.println("ended normally");
     }

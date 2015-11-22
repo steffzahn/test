@@ -2,6 +2,8 @@ package sz.math.abstr;
 
 import sz.math.intf.IGroup;
 import java.util.Iterator;
+import java.util.List;
+import java.util.ArrayList;
 
 public abstract class Group implements IGroup
 {
@@ -116,6 +118,21 @@ public abstract class Group implements IGroup
         while( it.hasNext() )
         {
             result = this.add( result, it.next() ); 
+        }
+        return result;
+    }
+
+    public List<Element> parseList( Iterable<String> iterable )
+    {
+        if( iterable==null )
+        {
+            throw new RuntimeException("sum operation missing mandatory parameters");
+        }
+        ArrayList<Element> result = new ArrayList<Element>();
+        Iterator<String> it = iterable.iterator();
+        while( it.hasNext() )
+        {
+            result.add( this.parse( it.next() ) );
         }
         return result;
     }
