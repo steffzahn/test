@@ -1,8 +1,6 @@
-public interface IField extends IGroup
+public interface IField extends IRing
 {
     public Element one();
-
-    public Element multiply( Element a, Element b );
 
     public Element inverse(Element a);
 }

@@ -1,12 +1,7 @@
-public class FloatField extends Field implements IField
+public class FloatRing extends Ring implements IRing
 {
-    protected FloatField()
+    protected FloatRing()
     {}
-
-    public FloatElement one_()
-    {
-        return new FloatElement( this, 1.0 );
-    }
 
     protected Element multiply_( Element a,Element b )
     {
@@ -15,12 +10,6 @@ public class FloatField extends Field implements IField
         return new FloatElement( this, af._value * bf._value );
     }
     
-    protected Element inverse_(Element a)
-    {
-        FloatElement af = (FloatElement)a;
-        return new FloatElement( this, 1.0 / af._value );
-    }
-
     protected Element parse_(String s)
     {
         return new FloatElement( this, Double.parseDouble(s) );
