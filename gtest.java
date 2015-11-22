@@ -5,12 +5,15 @@ import java.util.Arrays;
 import sz.math.abstr.Group;
 import sz.math.abstr.Ring;
 import sz.math.abstr.UnitaryRing;
+import sz.math.abstr.EuclideanRing;
 import sz.math.abstr.Field;
 import sz.math.abstr.Element;
+import sz.math.intf.IEuclideanRing;
 
 import sz.math.impl.IntGroup;
 import sz.math.impl.IntRing;
 import sz.math.impl.IntUnitaryRing;
+import sz.math.impl.IntEuclideanRing;
 import sz.math.impl.FloatGroup;
 import sz.math.impl.FloatRing;
 import sz.math.impl.FloatUnitaryRing;
@@ -61,6 +64,64 @@ class gtest
         System.out.println(myUnitaryRing.product( myUnitaryRing.parseList( strlist ) ));
     }
 
+    private static void euclideanRingTest(EuclideanRing myEuclideanRing, String v1, String v2, List<String> strlist )
+    {
+        unitaryRingTest( myEuclideanRing, v1, strlist );
+        System.out.println("EuclideanRing "+myEuclideanRing.getClass().getName() );
+        Element af = myEuclideanRing.parse( v1 );
+        System.out.println(myEuclideanRing.norm(af));
+        System.out.println(myEuclideanRing.norm(myEuclideanRing.negative(af)));
+        Element bf = myEuclideanRing.parse( v2 );
+        System.out.println("" + af + "/" + bf);
+        IEuclideanRing.Result result = myEuclideanRing.divideWithRemainder(af,bf);
+        System.out.println(result.quotient());
+        System.out.println(result.remainder());
+        System.out.println("euclid() = " + myEuclideanRing.euclid(af,bf));
+        af = myEuclideanRing.negative( af );
+        System.out.println("" + af + "/" + bf);
+        result = myEuclideanRing.divideWithRemainder(af,bf);
+        System.out.println(result.quotient());
+        System.out.println(result.remainder());
+        System.out.println("euclid() = " + myEuclideanRing.euclid(af,bf));
+        bf = myEuclideanRing.negative( bf );
+        System.out.println("" + af + "/" + bf);
+        result = myEuclideanRing.divideWithRemainder(af,bf);
+        System.out.println(result.quotient());
+        System.out.println(result.remainder());
+        System.out.println("euclid() = " + myEuclideanRing.euclid(af,bf));
+        af = myEuclideanRing.negative( af );
+        System.out.println("" + af + "/" + bf);
+        result = myEuclideanRing.divideWithRemainder(af,bf);
+        System.out.println(result.quotient());
+        System.out.println(result.remainder());
+        System.out.println("euclid() = " + myEuclideanRing.euclid(af,bf));
+        bf = myEuclideanRing.negative( bf );
+        af = myEuclideanRing.add( af, myEuclideanRing.one() );
+        System.out.println("" + af + "/" + bf);
+        result = myEuclideanRing.divideWithRemainder(af,bf);
+        System.out.println(result.quotient());
+        System.out.println(result.remainder());
+        System.out.println("euclid() = " + myEuclideanRing.euclid(af,bf));
+        af = myEuclideanRing.negative( af );
+        System.out.println("" + af + "/" + bf);
+        result = myEuclideanRing.divideWithRemainder(af,bf);
+        System.out.println(result.quotient());
+        System.out.println(result.remainder());
+        System.out.println("euclid() = " + myEuclideanRing.euclid(af,bf));
+        bf = myEuclideanRing.negative( bf );
+        System.out.println("" + af + "/" + bf);
+        result = myEuclideanRing.divideWithRemainder(af,bf);
+        System.out.println(result.quotient());
+        System.out.println(result.remainder());
+        System.out.println("euclid() = " + myEuclideanRing.euclid(af,bf));
+        af = myEuclideanRing.negative( af );
+        System.out.println("" + af + "/" + bf);
+        result = myEuclideanRing.divideWithRemainder(af,bf);
+        System.out.println(result.quotient());
+        System.out.println(result.remainder());
+        System.out.println("euclid() = " + myEuclideanRing.euclid(af,bf));
+    }
+
     private static void fieldTest(Field myField, String v1, List<String> strlist )
     {
         unitaryRingTest( myField, v1, strlist );
@@ -81,6 +142,7 @@ class gtest
         String v0 = (args.length>0) ? args[0] : "12.3";
         String v1 = (args.length>1) ? args[1] : "5";
         String v2 = (args.length>2) ? args[2] : "2.2";
+        String v3 = (args.length>3) ? args[2] : "3";
         
         Group myGroup = new FloatGroup();
         groupTest( myGroup, v0, floatList );
@@ -101,6 +163,10 @@ class gtest
 
         UnitaryRing myIntUnitaryRing = new IntUnitaryRing();
         unitaryRingTest( myIntUnitaryRing, v1, intList );
+
+        System.out.println("EuclideanRing");
+        EuclideanRing myEuclideanRing = new IntEuclideanRing();
+        euclideanRingTest( myEuclideanRing, v1, v3, intList );
 
         System.out.println("Field");
         Field myField = new FloatField();

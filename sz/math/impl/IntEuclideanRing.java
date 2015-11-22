@@ -1,12 +1,42 @@
 package sz.math.impl;
 import sz.math.abstr.Element;
-import sz.math.abstr.UnitaryRing;
-import sz.math.intf.IUnitaryRing;
+import sz.math.abstr.EuclideanRing;
+import sz.math.intf.IEuclideanRing;
 
-public class IntUnitaryRing extends UnitaryRing implements IUnitaryRing
+public class IntEuclideanRing extends EuclideanRing implements IEuclideanRing
 {
-    public IntUnitaryRing()
+    public IntEuclideanRing()
     {}
+
+    public long norm_(Element a)
+    {
+        IntElement af = (IntElement)a;
+        return (af._value < 0L) ? ( - af._value ) : af._value;
+    }
+
+    public IEuclideanRing.Result divideWithRemainder_( Element a, Element b )
+    {
+        IntElement af = (IntElement)a;
+        IntElement bf = (IntElement)b;
+        long rr = af._value % bf._value;
+        if( (rr<0) && (bf._value>0) || (rr>0) && (bf._value<0) )
+        {
+            rr += bf._value;
+        } 
+        final long r = rr;
+        final long q = (af._value - r) / bf._value;
+        return new IEuclideanRing.Result() {
+            public Element quotient()
+            {
+                return new IntElement( IntEuclideanRing.this, q );
+            }
+
+            public Element remainder()
+            {
+                return new IntElement( IntEuclideanRing.this, r );
+            }
+        };
+    }
 
     public IntElement one_()
     {

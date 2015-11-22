@@ -15,9 +15,23 @@ public abstract class UnitaryRing extends Ring implements IUnitaryRing
         }
         if( result.getTheClass()!=this )
         {
-            throw new RuntimeException("one operation delivers element outside of field");
+            throw new RuntimeException("one operation delivers element outside of unitary ring");
         }
         return result;
+    }
+
+    protected abstract boolean isOne_(Element e);
+    public boolean isOne(Element e)
+    {
+        if( e==null )
+        {
+            throw new RuntimeException("isOne operation missing mandatory parameters");
+        }
+        if( this!=e.getTheClass()  )
+        {
+            throw new RuntimeException("isOne operation does not accept parameters from a different unitary ring");
+        }
+        return isOne_(e);
     }
 
     // convenience methods

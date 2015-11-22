@@ -14,7 +14,7 @@ public abstract class Ring extends Group implements IRing
         }
         if( (a.getTheClass()!=this) || (b.getTheClass()!=this) )
         {
-            throw new RuntimeException("multiply operation does not process incompatible fields");
+            throw new RuntimeException("multiply operation does not process incompatible rings");
         }
         Element result = multiply_(a,b);
         if( result==null )
@@ -23,7 +23,7 @@ public abstract class Ring extends Group implements IRing
         }
         if( result.getTheClass()!=this )
         {
-            throw new RuntimeException("multiply operation delivers element outside of field");
+            throw new RuntimeException("multiply operation delivers element outside of rings");
         }
         return result;
     }

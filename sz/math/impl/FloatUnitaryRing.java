@@ -36,6 +36,12 @@ public class FloatUnitaryRing extends UnitaryRing implements IUnitaryRing
         return new FloatElement( this, 0.0 );
     }
 
+    public boolean isOne_(Element e)
+    {
+        FloatElement ef = (FloatElement)e;
+        return ef._value== 1.0;
+    }
+
     public boolean isZero_(Element e)
     {
         FloatElement ef = (FloatElement)e;

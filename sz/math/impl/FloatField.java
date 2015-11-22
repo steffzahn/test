@@ -48,6 +48,12 @@ public class FloatField extends Field implements IField
         return ef._value== 0.0;
     }
 
+    public boolean isOne_(Element e)
+    {
+        FloatElement ef = (FloatElement)e;
+        return ef._value== 1.0;
+    }
+
     protected Element add_( Element a, Element b )
     {
         FloatElement af = (FloatElement)a;
