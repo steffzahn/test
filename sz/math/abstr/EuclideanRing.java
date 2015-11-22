@@ -65,6 +65,10 @@ public abstract class EuclideanRing extends UnitaryRing implements IEuclideanRin
             {
                 return a;
             }
+            if( this.isZero( a ) )
+            {
+                return b;
+            }
             if( this.norm(a) >= this.norm(b) )
             {
                 Element q = this.divideWithRemainder( a, b ).remainder();

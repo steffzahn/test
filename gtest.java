@@ -120,6 +120,9 @@ class gtest
         System.out.println(result.quotient());
         System.out.println(result.remainder());
         System.out.println("euclid() = " + myEuclideanRing.euclid(af,bf));
+        System.out.println("euclid() = " + myEuclideanRing.euclid(af,myEuclideanRing.zero()));
+        System.out.println("euclid() = " + myEuclideanRing.euclid(myEuclideanRing.zero(),af));
+        System.out.println("euclid() = " + myEuclideanRing.euclid(bf,af));
     }
 
     private static void fieldTest(Field myField, String v1, List<String> strlist )
