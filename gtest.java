@@ -35,30 +35,27 @@ class gtest
     
     private static void ringTest(Ring myRing, String v1, List<String> strlist )
     {
+        groupTest( myRing, v1, strlist );
         System.out.println("Ring "+myRing.getClass().getName() );
         Element af = myRing.parse( v1 );
         Element bf = myRing.negative(af);
         System.out.println(myRing.multiply(af,bf));
-
-        System.out.println(myRing.sum( myRing.parseList( strlist )));
     }
 
     private static void fieldTest(Field myField, String v1, List<String> strlist )
     {
+        ringTest( myField, v1, strlist );
         System.out.println("Field "+myField.getClass().getName() );
         Element one = myField.one();
         System.out.println(one);
         Element af = myField.parse( v1 );
-        Element bf = myField.negative(af);
-        System.out.println(myField.multiply(af,bf));
+        System.out.println(myField.multiply(af,one));
         Element cf = myField.inverse(af);    
         System.out.println(cf);
         System.out.println(myField.multiply(cf,af));
-        System.out.println(myField.divide(af,bf));
+        System.out.println(myField.divide(af,cf));
 
-        List<Element> list = myField.parseList( strlist );
-        System.out.println(myField.sum( list ));
-        System.out.println(myField.product( list ));
+        System.out.println(myField.product( myField.parseList( strlist ) ));
     }
     
     public static void main( String[] args)
@@ -84,13 +81,9 @@ class gtest
         ringTest( myIntRing, v1, intList );
 
         System.out.println("Ring");
-        groupTest( myRing, v2, floatList );
         ringTest( myRing, v0, floatList );
 
         System.out.println("Field");
-
-        groupTest( myField, v2, floatList );
-
         fieldTest( myField, v2, floatList );
 
         System.out.println("ended normally");
