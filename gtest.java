@@ -1,6 +1,7 @@
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Arrays;
+import java.util.Date;
 
 import sz.math.abstr.Group;
 import sz.math.abstr.Ring;
@@ -123,6 +124,14 @@ class gtest
         System.out.println("euclid() = " + myEuclideanRing.euclid(af,myEuclideanRing.zero()));
         System.out.println("euclid() = " + myEuclideanRing.euclid(myEuclideanRing.zero(),af));
         System.out.println("euclid() = " + myEuclideanRing.euclid(bf,af));
+        System.out.println(new Date());
+        af=myEuclideanRing.zero();
+        for(int i=0;i<400000000;i++)
+        {
+            af = myEuclideanRing.add(af,myEuclideanRing.one());
+        }
+        System.out.println(new Date());
+        System.out.println(af);
     }
 
     private static void fieldTest(Field myField, String v1, List<String> strlist )
