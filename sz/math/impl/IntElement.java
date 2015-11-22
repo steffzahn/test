@@ -1,4 +1,7 @@
-class IntElement extends Element
+package sz.math.impl;
+import sz.math.abstr.Element;
+
+public class IntElement extends Element
 {
     protected long _value;
     private boolean _hashComputed;

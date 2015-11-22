@@ -2,6 +2,18 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Arrays;
 
+import sz.math.abstr.Group;
+import sz.math.abstr.Ring;
+import sz.math.abstr.Field;
+import sz.math.abstr.Element;
+
+import sz.math.impl.IntGroup;
+import sz.math.impl.IntRing;
+import sz.math.impl.FloatGroup;
+import sz.math.impl.FloatRing;
+import sz.math.impl.FloatField;
+
+
 class gtest
 {
     private static void groupTest(Group myGroup, String v1, List<String> strlist )

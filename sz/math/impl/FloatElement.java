@@ -1,4 +1,7 @@
-class FloatElement extends Element
+package sz.math.impl;
+import sz.math.abstr.Element;
+
+public class FloatElement extends Element
 {
     protected double _value;
     private boolean _hashComputed;

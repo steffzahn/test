@@ -1,6 +1,11 @@
+package sz.math.impl;
+import sz.math.abstr.Element;
+import sz.math.abstr.Field;
+import sz.math.intf.IField;
+
 public class FloatField extends Field implements IField
 {
-    protected FloatField()
+    public FloatField()
     {}
 
     public FloatElement one_()

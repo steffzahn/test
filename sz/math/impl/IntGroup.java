@@ -1,15 +1,13 @@
-public class IntRing extends Ring implements IRing
+package sz.math.impl;
+import sz.math.abstr.Element;
+import sz.math.abstr.Group;
+import sz.math.intf.IGroup;
+
+public class IntGroup extends Group implements IGroup
 {
-    protected IntRing()
+    public IntGroup()
     {}
 
-    protected Element multiply_( Element a,Element b )
-    {
-        IntElement af = (IntElement)a;
-        IntElement bf = (IntElement)b;
-        return new IntElement( this, af._value * bf._value );
-    }
-    
     protected Element parse_(String s)
     {
         return new IntElement( this, Long.parseLong(s) );

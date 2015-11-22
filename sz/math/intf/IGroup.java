@@ -1,3 +1,6 @@
+package sz.math.intf;
+import sz.math.abstr.Element;
+
 public interface IGroup
 {
     public Element zero();

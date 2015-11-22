@@ -1,3 +1,6 @@
+package sz.math.abstr;
+
+import sz.math.intf.IField;
 import java.util.Iterator;
 
 public abstract class Field extends Ring implements IField

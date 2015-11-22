@@ -1,3 +1,6 @@
+package sz.math.abstr;
+
+import sz.math.intf.IGroup;
 import java.util.Iterator;
 
 public abstract class Group implements IGroup

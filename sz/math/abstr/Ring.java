@@ -1,3 +1,6 @@
+package sz.math.abstr;
+
+import sz.math.intf.IRing;
 import java.util.Iterator;
 
 public abstract class Ring extends Group implements IRing

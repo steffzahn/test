@@ -1,15 +1,13 @@
-public class FloatRing extends Ring implements IRing
+package sz.math.impl;
+import sz.math.abstr.Element;
+import sz.math.abstr.Group;
+import sz.math.intf.IGroup;
+
+public class FloatGroup extends Group implements IGroup
 {
-    protected FloatRing()
+    public FloatGroup()
     {}
 
-    protected Element multiply_( Element a,Element b )
-    {
-        FloatElement af = (FloatElement)a;
-        FloatElement bf = (FloatElement)b;
-        return new FloatElement( this, af._value * bf._value );
-    }
-    
     protected Element parse_(String s)
     {
         return new FloatElement( this, Double.parseDouble(s) );

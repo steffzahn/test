@@ -1,3 +1,5 @@
+package sz.math.abstr;
+
 public abstract class Element
 {
     private Object _parent;
