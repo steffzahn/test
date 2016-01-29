@@ -70,9 +70,6 @@ class SubjectTest
         Set<Group> prl =  sub.getPrincipals(Group.class);
         System.out.println( prl.size() );
         System.out.println( prl.toString() );
-        Set<MyGroup> pr2 =  sub.getPrincipals(MyGroup.class);
-        System.out.println( pr2.size() );
-        System.out.println( pr2.toString() );
     }
     
     public static void main(String[] args)
