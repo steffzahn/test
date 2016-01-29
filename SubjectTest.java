@@ -55,21 +55,40 @@ class SubjectTest
             return _name;
         }
     }
+
+    private static class MyPrincipal implements Principal
+    {
+        private String _name;
+        
+        MyPrincipal(String name)
+        {
+            _name = name;
+        }
+        
+        public String getName()
+        {
+            return _name;
+        }
+    }
     
     private void test()
     {
-        Subject sub = new Subject();
-        Set<Principal> prmg =  sub.getPrincipals();
-        //Set prl =  sub.getPrincipals(MyGroup.class);
-        MyGroup gr = new MyGroup("Roles");
-        if( gr instanceof Group )
+        Subject subject = new Subject();
+        Set<Principal> rawListOfPrincipals =  subject.getPrincipals();
+        MyGroup group = new MyGroup("Roles");
+        if( group instanceof Group )
         {
             System.out.println("is Group");
         }
-        prmg.add( gr );
-        Set<Group> prl =  sub.getPrincipals(Group.class);
-        System.out.println( prl.size() );
-        System.out.println( prl.toString() );
+        rawListOfPrincipals.add( group );
+        MyPrincipal id = new MyPrincipal("itsMe");
+        rawListOfPrincipals.add( id );
+        Set<Group> principalListFilteredByGroupClass =  subject.getPrincipals(Group.class);
+        System.out.println( principalListFilteredByGroupClass.size() + "," +  principalListFilteredByGroupClass.toString() );
+        Set<MyPrincipal> principalListFilteredByMyPrincipalClass =  subject.getPrincipals(MyPrincipal.class);
+        System.out.println( principalListFilteredByMyPrincipalClass.size() + "," +  principalListFilteredByMyPrincipalClass.toString() );
+        Set<Principal> readRawListOfPrincipalsAgain =  subject.getPrincipals();
+        System.out.println( readRawListOfPrincipalsAgain.size() + "," +  readRawListOfPrincipalsAgain.toString() );
     }
     
     public static void main(String[] args)
