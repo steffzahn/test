@@ -16,12 +16,12 @@ func sum(a []int) int {
 	return z
 }
 
-type Stringer interface {
+type stringer interface {
 	String() string
 }
 
 func toString(any interface{}) string {
-	if v, ok := any.(Stringer); ok {
+	if v, ok := any.(stringer); ok {
 		return v.String()
 	}
 	switch v := any.(type) {
@@ -36,13 +36,13 @@ func toString(any interface{}) string {
 func main() {
 	i := 4
 	p := &i
-	var x uintptr = uintptr(unsafe.Pointer(p))
+	var x = uintptr(unsafe.Pointer(p))
 	fmt.Println(i, x, reflect.TypeOf(x))
 	if a, b := 9, "WTF"; i < 5 {
 		i = a
 		fmt.Println(b)
 	}
-	var v complex128 = 12 + 3i
+	var v = 12 + 3i
 	fmt.Printf("%v %T", v, v)
 	fmt.Println(os.Getenv("PORT"), os.Getenv("IP"))
 	fmt.Println(i, 1i)
