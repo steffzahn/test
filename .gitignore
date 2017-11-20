@@ -8,9 +8,12 @@
 *.war
 *.ear
 bin/
+go/src/github.com/golang/
+go/src/golang.org/
 
 # virtual machine crash logs, see http://www.java.com/en/download/help/error_hotspot.xml
 hs_err_pid*
 
 *.log
+*.prof
 .c9
