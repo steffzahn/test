@@ -4,8 +4,10 @@ import "fmt"
 import "unsafe"
 import "reflect"
 import "os"
+import "bufio"
 import "math/cmplx"
 import "strconv"
+import "log"
 
 func sum(a []int) int {
 	z := 0
@@ -34,6 +36,7 @@ func toString(any interface{}) string {
 }
 
 func main() {
+	log.Println("Hello starting")
 	i := 4
 	p := &i
 	var x = uintptr(unsafe.Pointer(p))
@@ -59,5 +62,25 @@ func main() {
 		fmt.Println("float64")
 	default:
 		fmt.Println("???")
+	}
+	f, err := os.Create("bla")
+	if err != nil {
+		log.Fatal(err)
+	} else {
+		f.WriteString("Dummy")
+		f.Close()
+	}
+	f, err = os.Open("bla")
+	if err != nil {
+		log.Fatal(err)
+	} else {
+		defer f.Close()
+		scanner := bufio.NewScanner(f)
+
+		for scanner.Scan() { // internally, it advances token based on sperator
+			fmt.Println(scanner.Text())  // token in unicode-char
+			fmt.Println(scanner.Bytes()) // token in bytes
+
+		}
 	}
 }
