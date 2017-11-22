@@ -35,6 +35,17 @@ func toString(any interface{}) string {
 	return "???"
 }
 
+func createBucket(initialValue int) (getF func() int, setF func(v int)) {
+	val := initialValue
+	getF = func() int {
+		return val
+	}
+	setF = func(v int) {
+		val = v
+	}
+	return
+}
+
 func main() {
 	log.Println("Hello starting")
 	i := 4
@@ -83,4 +94,8 @@ func main() {
 
 		}
 	}
+	getF, setF := createBucket(3)
+	fmt.Println(getF())
+	setF(5)
+	fmt.Println(getF())
 }
