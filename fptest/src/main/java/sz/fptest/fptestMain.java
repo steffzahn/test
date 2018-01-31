@@ -2,6 +2,7 @@ package sz.fptest;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.stream.Collectors;
 
 public class fptestMain {
     private static List<String> makeList()
@@ -18,9 +19,8 @@ public class fptestMain {
     {
         String result = list
                 .stream()
-                .map(name -> name + " ")
-                .reduce("", (acc, name) -> acc+name);
-        return result;
+                .collect(Collectors.joining(" "));
+        return result+" ";
     }
 
     private static String tfuntionalPerverted(List<String> list)
