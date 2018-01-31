@@ -23,6 +23,15 @@ public class fptestMain {
         return result;
     }
 
+    private static String tfuntionalPerverted(List<String> list)
+    {
+        StringBuilder sb = new StringBuilder(20000);
+        String result = list
+                .stream()
+                .reduce("", (acc, name) -> sb.append(name).append(' ') !=null ? "" : "");
+        return sb.toString();
+    }
+
     private static String tnormal(List<String> list)
     {
         String result="";
@@ -35,7 +44,7 @@ public class fptestMain {
 
     private static String tnormalPrealloc(List<String> list)
     {
-        StringBuilder sb = new StringBuilder(20000);
+        StringBuilder sb = new StringBuilder(20-+-000);
         for( String s : list)
         {
             sb.append(s).append(' ');
@@ -54,12 +63,17 @@ public class fptestMain {
             long t3 = System.currentTimeMillis();
             String snp = tnormalPrealloc(list);
             long t4 = System.currentTimeMillis();
-            System.out.println("tfunctional:" + (t2 - t1) + ", tnormal:" + (t3 - t2)+ ", tnormalPrealloc:" + (t4 - t3));
+            String sfp = tfuntionalPerverted(list);
+            long t5 = System.currentTimeMillis();
+            System.out.println("tfunctional:" + (t2 - t1) + ", tnormal:" + (t3 - t2) + ", tnormalPrealloc:" + (t4 - t3)+ ", tfunctionalPerverted:" + (t5 - t4));
             if (!sn.equals(sf)) {
                 System.out.println("sn != sf");
             }
             if (!snp.equals(sf)) {
                 System.out.println("snp != sf");
+            }
+            if (!sfp.equals(sf)) {
+                System.out.println("sfp != sf");
             }
         }
     }
