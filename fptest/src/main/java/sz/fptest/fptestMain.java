@@ -28,7 +28,7 @@ public class fptestMain {
         StringBuilder sb = new StringBuilder(20000);
         String result = list
                 .stream()
-                .reduce("", (acc, name) -> sb.append(name).append(' ') !=null ? "" : "");
+                .reduce("", (acc, name) -> { sb.append(name).append(' '); return ""; } );
         return sb.toString();
     }
 
@@ -44,7 +44,7 @@ public class fptestMain {
 
     private static String tnormalPrealloc(List<String> list)
     {
-        StringBuilder sb = new StringBuilder(20-+-000);
+        StringBuilder sb = new StringBuilder(20000);
         for( String s : list)
         {
             sb.append(s).append(' ');
