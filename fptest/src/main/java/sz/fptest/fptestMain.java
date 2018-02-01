@@ -32,7 +32,15 @@ public class fptestMain {
         return sb.toString();
     }
 
-    private static String tnormal(List<String> list)
+    private static String tfuntionalWasteLotsOfObjects(List<String> list) {
+        String result = list
+                .stream()
+                .map(name -> name + " ")
+                .reduce("", (acc, name) -> acc + name);
+        return result;
+    }
+
+    private static String tnormalWasteLotsOfObjects(List<String> list)
     {
         String result="";
         for( String s : list)
@@ -55,17 +63,20 @@ public class fptestMain {
     public static void main(String[] args)
     {
         List<String> list = makeList();
-        for( int round=1;round<=100;round++) {
+        for( int round=1;round<=25;round++) {
             long t1 = System.currentTimeMillis();
             String sf = tfuntional(list);
             long t2 = System.currentTimeMillis();
-            String sn = tnormal(list);
+            String sn = tnormalWasteLotsOfObjects(list);
             long t3 = System.currentTimeMillis();
             String snp = tnormalPrealloc(list);
             long t4 = System.currentTimeMillis();
             String sfp = tfuntionalPerverted(list);
             long t5 = System.currentTimeMillis();
-            System.out.println("tfunctional:" + (t2 - t1) + ", tnormal:" + (t3 - t2) + ", tnormalPrealloc:" + (t4 - t3)+ ", tfunctionalPerverted:" + (t5 - t4));
+            String sfwlo = tfuntionalWasteLotsOfObjects(list);
+            long t6 = System.currentTimeMillis();
+            System.out.println("tfunctional:" + (t2 - t1) + ", tnormalWasteLotsOfObjects:" + (t3 - t2) + ", tnormalPrealloc:" + (t4 - t3)
+                    + ", tfunctionalPerverted:" + (t5 - t4) + ", tfuntionalWasteLotsOfObjects:" + (t6 - t5));
             if (!sn.equals(sf)) {
                 System.out.println("sn != sf");
             }
@@ -74,6 +85,9 @@ public class fptestMain {
             }
             if (!sfp.equals(sf)) {
                 System.out.println("sfp != sf");
+            }
+            if (!sfwlo.equals(sf)) {
+                System.out.println("sfwlo != sf");
             }
         }
     }
