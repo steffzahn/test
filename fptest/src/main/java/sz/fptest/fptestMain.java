@@ -2,9 +2,16 @@ package sz.fptest;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.function.Function;
 import java.util.stream.Collectors;
 
 public class fptestMain {
+
+    private static String testO(Function<Integer,String> t)
+    {
+        System.out.println( t.getClass().getName() );
+        return t.apply(5);
+    }
     private static List<String> makeList()
     {
         List<String> result = new ArrayList<>();
@@ -61,6 +68,7 @@ public class fptestMain {
 
     public static void main(String[] args)
     {
+        System.out.println( testO( i -> { return Integer.toString( i.intValue() ); } ));
         List<String> list = makeList();
         for( int round=1;round<=25;round++) {
             long t1 = System.currentTimeMillis();
