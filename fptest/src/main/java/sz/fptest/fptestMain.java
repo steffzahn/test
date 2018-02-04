@@ -17,10 +17,9 @@ public class fptestMain {
 
     private static String tfuntional(List<String> list)
     {
-        String result = list
+        return list
                 .stream()
-                .collect(Collectors.joining(" "));
-        return result+" ";
+                .collect(Collectors.joining(" ","", " "));
     }
 
     private static String tfuntionalPerverted(List<String> list)
