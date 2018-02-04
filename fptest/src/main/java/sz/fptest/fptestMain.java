@@ -7,12 +7,13 @@ import java.util.stream.Collectors;
 
 public class fptestMain {
 
-    private static String testO(Function<Integer,String> t)
+    private String testO(Integer i, Function<Integer,String> t)
     {
         System.out.println( t.getClass().getName() );
-        return t.apply(5);
+        return t.apply(i);
     }
-    private static List<String> makeList()
+
+    private List<String> makeList()
     {
         List<String> result = new ArrayList<>();
         for( int i=0; i<10000; i++)
@@ -22,14 +23,14 @@ public class fptestMain {
         return result;
     }
 
-    private static String tfuntional(List<String> list)
+    private String tfuntional(List<String> list)
     {
         return list
                 .stream()
                 .collect(Collectors.joining(" ","", " "));
     }
 
-    private static String tfuntionalPerverted(List<String> list)
+    private String tfuntionalPerverted(List<String> list)
     {
         StringBuilder sb = new StringBuilder(20000);
         String result = list
@@ -38,7 +39,7 @@ public class fptestMain {
         return sb.toString();
     }
 
-    private static String tfuntionalWasteLotsOfObjects(List<String> list) {
+    private String tfuntionalWasteLotsOfObjects(List<String> list) {
         String result = list
                 .stream()
                 .map(name -> name + " ")
@@ -46,7 +47,7 @@ public class fptestMain {
         return result;
     }
 
-    private static String tnormalWasteLotsOfObjects(List<String> list)
+    private String tnormalWasteLotsOfObjects(List<String> list)
     {
         String result="";
         for( String s : list)
@@ -56,7 +57,7 @@ public class fptestMain {
         return result;
     }
 
-    private static String tnormalPrealloc(List<String> list)
+    private String tnormalPrealloc(List<String> list)
     {
         StringBuilder sb = new StringBuilder(20000);
         for( String s : list)
@@ -66,9 +67,9 @@ public class fptestMain {
         return sb.toString();
     }
 
-    public static void main(String[] args)
+    private void run()
     {
-        System.out.println( testO( i -> { return Integer.toString( i.intValue() ); } ));
+        System.out.println( testO( 5, i -> { return i.toString(); } ));
         List<String> list = makeList();
         for( int round=1;round<=25;round++) {
             long t1 = System.currentTimeMillis();
@@ -97,5 +98,10 @@ public class fptestMain {
                 System.out.println("sfwlo != sf");
             }
         }
+    }
+
+    public static void main(String[] args)
+    {
+        new fptestMain().run();
     }
 }
