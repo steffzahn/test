@@ -44,10 +44,10 @@ public:
 		return (*this > p2 ) || (*this == p2);
 	}
 
-	friend std::ostream& operator<< ( std::ostream& os, Key& k );
+	friend std::ostream& operator<< ( std::ostream& os, const Key& k );
 };
 
-inline std::ostream& operator<< ( std::ostream& os, Key& k )
+inline std::ostream& operator<< ( std::ostream& os, const Key& k )
 {
 	return os<< k.a << "," << k.b;
 }
