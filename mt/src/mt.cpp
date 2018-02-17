@@ -19,14 +19,35 @@ public:
 	{}
 	Key(int av, int bv) : a(av), b(bv)
 	{}
-	friend bool operator<( const Key& p1, const Key& p2);
-	friend std::ostream& operator<< ( std::ostream& os, Key& k);
+	bool operator<( const Key& p2 ) const
+	{
+		return ( ( a<p2.a ) || ( (a==p2.a) && (b<p2.b) ));
+	}
+	bool operator>( const Key& p2 ) const
+	{
+		return ! (*this < p2 );
+	}
+	bool operator==( const Key& p2 ) const
+	{
+		return ( ( a==p2.a ) && ( b==p2.b ));
+	}
+	bool operator<=( const Key& p2 ) const
+	{
+		return (*this < p2 ) || (*this == p2);
+	}
+	bool operator!=( const Key& p2 ) const
+	{
+		return !(*this == p2);
+	}
+	bool operator>=( const Key& p2 ) const
+	{
+		return (*this > p2 ) || (*this == p2);
+	}
+
+	friend std::ostream& operator<< ( std::ostream& os, Key& k );
 };
 
-bool operator<( const Key& p1, const Key& p2)
-{ return ( ( p1.a<p2.a ) || ( (p1.a==p2.a) && (p1.b<p2.b) )); }
-
-std::ostream& operator<< ( std::ostream& os, Key& k)
+inline std::ostream& operator<< ( std::ostream& os, Key& k )
 {
 	return os<< k.a << "," << k.b;
 }
