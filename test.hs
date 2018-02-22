@@ -25,3 +25,8 @@ quicksort (head:tail) =
         biggerNumbers = quicksort (filter (>head) tail)
     in
         smallerNumbers ++ [head] ++ biggerNumbers  
+
+ack 0 n = n + 1
+ack n 0 = ack (n - 1) 1
+ack n m = ack (n - 1) ( ack n ( m - 1 ) )
+
