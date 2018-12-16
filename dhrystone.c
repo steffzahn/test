@@ -87,28 +87,29 @@
 
 
 /* Accuracy of timings and human fatigue controlled by next two lines */
-/*#define LOOPS	50000		/* Use this for slow or 16 bit machines */
-#define LOOPS	5000000		/* Use this for faster machines */
+/*#define LOOPS	50000	*/	/* Use this for slow or 16 bit machines */
+/*#define LOOPS	5000000	*/	/* Use this for faster machines */
+#define LOOPS	50000000	
 
 
 /* Compiler dependent options */
-/*#define	NOENUM			/* Define if compiler has no enum's */
-/*#define	NOSTRUCTASSIGN		/* Define if compiler can't assign structures */
+/*#define	NOENUM	*/		/* Define if compiler has no enum's */
+/*#define	NOSTRUCTASSIGN	*/	/* Define if compiler can't assign structures */
 
 
 /* Define only one of the next two defines */
 #define TIMES			/* Use times(2) time function */
-/*#define TIME			/* Use time(2) time function */
+/*#define TIME	*/		/* Use time(2) time function */
 
 
 /* Define the granularity of your times(2) function (when used) */
-/*#define HZ	50		/* times(2) returns 1/50 second (europe?) */
-/*#define HZ	60		/* times(2) returns 1/60 second (most) */
+/*#define HZ	50	*/	/* times(2) returns 1/50 second (europe?) */
+/*#define HZ	60	*/	/* times(2) returns 1/60 second (most) */
 #define HZ	100		/* times(2) returns 1/100 second (WECo) */
 
 
 /* For compatibility with goofed up version */
-/*#undef GOOF			/* Define if you want the goofed up version */
+/*#undef GOOF		*/	/* Define if you want the goofed up version */
 
 
 #ifdef GOOF
@@ -181,8 +182,23 @@ extern boolean Func2();
 #include <sys/times.h>
 #endif
 
+#include <stdlib.h>
+#include <stdio.h>
+#include <unistd.h>
+#include <string.h>
 
-main()
+void Proc0(void);
+void Proc5(void);
+void Proc4(void);
+void Proc7(OneToFifty IntParI1, OneToFifty IntParI2, OneToFifty *IntParOut);
+void Proc8(Array1Dim Array1Par,Array2Dim Array2Par,OneToFifty IntParI1,OneToFifty IntParI2);
+void Proc1(REG RecordPtr PtrParIn);
+void Proc6(REG Enumeration EnumParIn,REG Enumeration *EnumParOut);
+void Proc2(OneToFifty *IntParIO);
+void Proc3(RecordPtr *PtrParOut);
+
+
+int main(int argc, char **argv)
 {
   Proc0();
   exit(0);
@@ -200,17 +216,15 @@ RecordPtr PtrGlb;
 RecordPtr PtrGlbNext;
 
 
-Proc0()
+void Proc0(void)
 {
   OneToFifty IntLoc1;
   REG OneToFifty IntLoc2;
   OneToFifty IntLoc3;
-  REG char CharLoc;
   REG char CharIndex;
   Enumeration EnumLoc;
   String30 String1Loc;
   String30 String2Loc;
-  extern char *malloc();
   register unsigned int i;
 
 
@@ -320,8 +334,7 @@ Proc0()
 }
 
 
-Proc1(PtrParIn)
-REG RecordPtr PtrParIn;
+void Proc1(REG RecordPtr PtrParIn)
 {
 #define	NextRecord	(*(PtrParIn->PtrComp))
 
@@ -330,7 +343,7 @@ REG RecordPtr PtrParIn;
   PtrParIn->IntComp = 5;
   NextRecord.IntComp = PtrParIn->IntComp;
   NextRecord.PtrComp = PtrParIn->PtrComp;
-  Proc3(NextRecord.PtrComp);
+  Proc3(&(NextRecord.PtrComp));
   if (NextRecord.Discr == Ident1) {
 	NextRecord.IntComp = 6;
 	Proc6(PtrParIn->EnumComp, &NextRecord.EnumComp);
@@ -344,8 +357,7 @@ REG RecordPtr PtrParIn;
 }
 
 
-Proc2(IntParIO)
-OneToFifty *IntParIO;
+void Proc2(OneToFifty *IntParIO)
 {
   REG OneToFifty IntLoc;
   REG Enumeration EnumLoc;
@@ -363,8 +375,7 @@ OneToFifty *IntParIO;
 }
 
 
-Proc3(PtrParOut)
-RecordPtr *PtrParOut;
+void Proc3(RecordPtr *PtrParOut)
 {
   if (PtrGlb != NULL)
 	*PtrParOut = PtrGlb->PtrComp;
@@ -374,7 +385,7 @@ RecordPtr *PtrParOut;
 }
 
 
-Proc4()
+void Proc4(void)
 {
   REG boolean BoolLoc;
 
@@ -385,7 +396,7 @@ Proc4()
 }
 
 
-Proc5()
+void Proc5(void)
 {
   Char1Glob = 'A';
   BoolGlob = FALSE;
@@ -395,9 +406,7 @@ Proc5()
 extern boolean Func3();
 
 
-Proc6(EnumParIn, EnumParOut)
-REG Enumeration EnumParIn;
-REG Enumeration *EnumParOut;
+void Proc6(REG Enumeration EnumParIn,REG Enumeration *EnumParOut)
 {
   *EnumParOut = EnumParIn;
   if (!Func3(EnumParIn)) *EnumParOut = Ident4;
@@ -417,10 +426,7 @@ REG Enumeration *EnumParOut;
 }
 
 
-Proc7(IntParI1, IntParI2, IntParOut)
-OneToFifty IntParI1;
-OneToFifty IntParI2;
-OneToFifty *IntParOut;
+void Proc7(OneToFifty IntParI1, OneToFifty IntParI2, OneToFifty *IntParOut)
 {
   REG OneToFifty IntLoc;
 
@@ -430,11 +436,7 @@ OneToFifty *IntParOut;
 }
 
 
-Proc8(Array1Par, Array2Par, IntParI1, IntParI2)
-Array1Dim Array1Par;
-Array2Dim Array2Par;
-OneToFifty IntParI1;
-OneToFifty IntParI2;
+void Proc8(Array1Dim Array1Par,Array2Dim Array2Par,OneToFifty IntParI1,OneToFifty IntParI2)
 {
   REG OneToFifty IntLoc;
   REG OneToFifty IntIndex;
